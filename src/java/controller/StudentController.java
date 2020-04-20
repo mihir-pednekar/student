@@ -5,6 +5,8 @@
  */
 package controller;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import model.CreateDB;
 import util.DbConnection;
+import util.ReadWriteJson;
 
 /**
  *
@@ -28,10 +31,11 @@ public class StudentController implements StudentSvc{
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String createDB(String createDb) {
-        String jsonReq = createDb.toString();
-        System.out.println(jsonReq);
-        DbConnection dbConn = new DbConnection();
+        System.out.println(createDb);
         try {
+            JsonObject jsonObj = ReadWriteJson.readJson(createDb);
+            ReadWriteJson.writeJson(jsonObj , "createDB.json");
+            DbConnection dbConn = new DbConnection(jsonObj);
             dbConn.createConn();
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
