@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Student Rest WebSvc</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="script.js"> </script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    
+    <body>
+        
+        <form action="/action_page.php" method="post" target="_blank">
+            <table>
+                <tr>
+                    <th>Create DB</th>
+                </tr>
+                <tr>
+                    <td>DB Driver </td>
+                    <td> <input type="text" id="driver" name="driver" value="org.apache.derby.jdbc.ClientDriver" size="30"> </td>
+                </tr>
+                <tr>
+                    <td>DB Name </td>
+                    <td> <input type="text" id="dbName" name="dbName" value="students_1234" size="30"> </td>
+                </tr>
+                <tr>
+                    <td>DB URL </td>
+                    <td> <input type="text" id="url" name="url" value="jdbc:derby://localhost:1527/" size="30"> </td>
+                </tr>
+                <tr>
+                    <td>DB Username </td>
+                    <td> <input type="text" id="user" name="user" value="mihir" size="30"> </td>
+                </tr>
+                <tr>
+                    <td>DB Password </td>
+                    <td> <input type="password" id="url" name="pass" value="mihir" size="30"> </td>
+                </tr>
+                <tr>
+                    <td> <input type="submit" formmethod="post" value="Create DB Schema" size="30" onclick="createDbSchema()"> </td>
+                </tr>
+            </table>
+        </form>
+            
+        
+
+    </body>
+</html>
