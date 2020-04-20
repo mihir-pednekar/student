@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import service.StudentSvc;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
+import model.CreateDB;
 import util.DbConnection;
 
 /**
@@ -21,11 +23,13 @@ import util.DbConnection;
 public class StudentController implements StudentSvc{
 
     @Override
-    @GET
+    @POST
     @Path("createDB")
     @Produces(MediaType.APPLICATION_JSON)
-    public String createDB() {
-        
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createDB(String createDb) {
+        String jsonReq = createDb.toString();
+        System.out.println(jsonReq);
         DbConnection dbConn = new DbConnection();
         try {
             dbConn.createConn();

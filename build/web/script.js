@@ -5,7 +5,15 @@
  */
 
 
-function UserAction() {
+function createDbSchema() {
+    var dbDriver = document.getElementById("driver").value;
+    var dbName = document.getElementById("dbName").value;
+    var dbUrl = document.getElementById("url").value;
+    var dbUser = document.getElementById("user").value;
+    var dbPass = document.getElementById("pass").value;
+    var obj = { driver: dbDriver, dbName: dbName, url: dbUrl, user: dbUser, pass: dbPass };
+    var myJSON = JSON.stringify(obj);
+
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
          if (this.readyState == 4 && this.status == 200) {
@@ -14,5 +22,5 @@ function UserAction() {
     };
     xhttp.open("POST", "http://localhost:8080/student/rest/student-rest/createDB", true);
     xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send("Your JSON Data Here");
+    xhttp.send(myJSON);
 }

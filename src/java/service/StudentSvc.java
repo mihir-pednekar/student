@@ -5,10 +5,12 @@
  */
 package service;
 
+import model.CreateDB;
+
 /**
  *
  * @author mihir
  */
 public interface StudentSvc {
-    public String createDB();
+    public String createDB(String createDb);
 }
