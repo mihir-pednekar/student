@@ -40,7 +40,7 @@ public class StudentController implements StudentSvc{
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Hello from mihir";
+        return "hello from mihir";
     }
     
 }
