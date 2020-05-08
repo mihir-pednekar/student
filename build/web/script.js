@@ -19,7 +19,7 @@ function createDbSchema() {
     xhttp.onreadystatechange = function() {
          if (this.readyState == 4 && this.status == 200) {
              alert(this.responseText);
-             window.location.href = "http://localhost:8080/student/home.html";
+             //window.location.href = "http://localhost:8080/student/home.html";
          }
     };
     xhttp.open("POST", "http://localhost:8080/student/rest/student-rest/createDB", true);

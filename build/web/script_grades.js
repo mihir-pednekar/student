@@ -5,24 +5,21 @@
  */
 
 
-function createDbSchema() {
-    var dbDriver = document.getElementById("driver").value;
-    var dbName = document.getElementById("dbName").value;
-    var dbUrl = document.getElementById("url").value;
-    var dbUser = document.getElementById("user").value;
-    var dbPass = document.getElementById("pass").value;
-    var obj = { driver: dbDriver, dbName: dbName, url: dbUrl, user: dbUser, pass: dbPass };
+function insertGrades() {
+    var studId = document.getElementById("studentId").value;
+    var studGrade = document.getElementById("studentGrade").value;
+    var obj = { studentId: studId, studentGrade: studGrade };
     var myJSON = JSON.stringify(obj);
 
     var xhttp = new XMLHttpRequest();
-    var respTxt;
+    
     xhttp.onreadystatechange = function() {
          if (this.readyState == 4 && this.status == 200) {
              alert(this.responseText);
-             //window.location.href = "http://localhost:8080/student/home.html";
+             window.location.href = "http://localhost:8080/student/home.html";
          }
     };
-    xhttp.open("POST", "http://localhost:8080/student/rest/student-rest/createDB", true);
+    xhttp.open("POST", "http://localhost:8080/student/rest/student-rest/insertGrade", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(myJSON);
     alert("Data sent to web service");

@@ -36,11 +36,31 @@ public class StudentController implements StudentSvc{
             JsonObject jsonObj = ReadWriteJson.readJson(createDb);
             ReadWriteJson.writeJson(jsonObj , "createDB.json");
             DbConnection dbConn = new DbConnection(jsonObj);
-            dbConn.createConn();
+            dbConn.createTables();
         } catch (SQLException ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error in DB & table creation!!!";
         }
-        return "hello from mihir";
+        return "DB & tables created!!!";
+    }
+    
+    @Override
+    @POST
+    @Path("insertGrade")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String insertGrade(String grades) {
+        System.out.println(grades);
+        try {
+            JsonObject gradesJson = ReadWriteJson.readJson(grades);
+            JsonObject dbConnJson = ReadWriteJson.readJson("createDB.json");
+            DbConnection dbConn = new DbConnection(dbConnJson);
+            dbConn.createTables();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error inserting into Grades Table!!!";
+        }
+        return "Inserted into Grades Table!!!";
     }
     
 }

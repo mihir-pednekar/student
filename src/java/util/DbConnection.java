@@ -6,6 +6,7 @@
 package util;
 
 import com.google.gson.JsonObject;
+import constants.SqlQueryConstants;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -36,42 +37,30 @@ public class DbConnection {
         return "DbConnection{" + "driver=" + driver + ", url=" + url + ", username=" + username + ", passwd=" + passwd + ", dbName=" + dbName + ", con=" + con + ", stmt=" + stmt + '}';
     }
     
-    public void createConn() throws SQLException{
+    //get connection properties from JSON file written at Server path
+    public Connection getConnection() throws SQLException, ClassNotFoundException{
+        //Connection con = null;
+        url = url + dbName + ";create=true";
+        System.out.println(this.toString());
+        Class.forName(driver);
+        con = DriverManager.getConnection(url,username,passwd);
+        System.out.println("Connection established to DB....");
+        return con;
+    }
+    
+    public void createTables() throws SQLException{
 
         try{
-            
-            url = url + dbName + ";create=true";
-            System.out.println(this.toString());
-            Class.forName(driver);
-            con = DriverManager.getConnection(url,username,passwd);
-            System.out.println("Connection established....");
-            //STEP 4: Execute a query
             System.out.println("Creating table in given database...");
+            con = getConnection();
             stmt = con.createStatement();
             con.setAutoCommit(false);
 
-            String query1 = "CREATE TABLE Students( "
-                + "Id INT NOT NULL, "
-                + "fName VARCHAR(30), "
-                + "lName VARCHAR(30), "
-                + "PRIMARY KEY (Id))";
+            stmt.executeUpdate(SqlQueryConstants.CREATE_STUDENT_TABLE);
+            stmt.executeUpdate(SqlQueryConstants.CREATE_CLASSES_TABLE);
+            stmt.executeUpdate(SqlQueryConstants.CREATE_ENROLLEMTS_TABLE);
+            stmt.executeUpdate(SqlQueryConstants.CREATE_GRADES_TABLE);
             
-            String query2 = "CREATE TABLE Classes( "
-                + "cId INT NOT NULL, "
-                + "cTitle VARCHAR(30), "
-                + "cDesc VARCHAR(30), "
-                + "PRIMARY KEY (cId))";
-            
-            String query3 = "CREATE TABLE Enrollments( "
-                + "eId INT NOT NULL, "
-                + "classId INT NOT NULL, "
-                + "studId INT NOT NULL, "
-                + "FOREIGN KEY (classId) REFERENCES Classes(cId), "
-                + "FOREIGN KEY (studId) REFERENCES Students(Id)) ";
-            
-            stmt.executeUpdate(query1);
-            stmt.executeUpdate(query2);
-            stmt.executeUpdate(query3);
             con.commit();
             System.out.println("Created table in given database...");
             System.out.println("Database created successfully...");
