@@ -10,6 +10,7 @@ import constants.SqlQueryConstants;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 /**
  *
@@ -26,14 +27,22 @@ public class GradesDao {
         boolean success = false;
         
         try{
-            StringBuilder query = new StringBuilder(SqlQueryConstants.INSERT_INTO_GRADES);
-            query.append("("+gradesJson.get("studentId").getAsString()+", "+gradesJson.get("studentGrade").getAsString()+")");
+            Timestamp tstamp = new Timestamp(System.currentTimeMillis());
+            Long sharedPk = tstamp.getTime();
+        
+            StringBuilder query1 = new StringBuilder(SqlQueryConstants.INSERT_INTO_STUDENT);
+            query1.append("("+sharedPk+", '"+gradesJson.get("studentName").getAsString()+"', '"+gradesJson.get("studentLastName").getAsString()+"', CURRENT_DATE)");
+            
+            StringBuilder query2 = new StringBuilder(SqlQueryConstants.INSERT_INTO_GRADES);
+            query2.append("("+sharedPk+", "+gradesJson.get("studentGrade").getAsString()+")");
 
             Statement stmt = con.createStatement();
             con.setAutoCommit(false);
             
-            stmt.execute(query.toString());
+            stmt.execute(query1.toString());
+            stmt.execute(query2.toString());
             con.commit();
+            success = true;
             System.out.println("Values inserted into Grades...");
         }
         catch(Exception e){

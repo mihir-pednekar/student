@@ -6,9 +6,10 @@
 
 
 function insertGrades() {
-    var studId = document.getElementById("studentId").value;
+    var studFst = document.getElementById("studentFname").value;
+    var studLst = document.getElementById("studentLname").value;
     var studGrade = document.getElementById("studentGrade").value;
-    var obj = { studentId: studId, studentGrade: studGrade };
+    var obj = { studentName: studFst, studentLastName: studLst, studentGrade: studGrade };
     var myJSON = JSON.stringify(obj);
 
     var xhttp = new XMLHttpRequest();

@@ -7,6 +7,8 @@ package controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dao.GradesDao;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,10 +55,22 @@ public class StudentController implements StudentSvc{
         System.out.println(grades);
         try {
             JsonObject gradesJson = ReadWriteJson.readJson(grades);
-            JsonObject dbConnJson = ReadWriteJson.readJson("createDB.json");
+            JsonObject dbConnJson = ReadWriteJson.readJsonFile("createDB.json");
             DbConnection dbConn = new DbConnection(dbConnJson);
-            dbConn.createTables();
+            GradesDao dao = new GradesDao(dbConn.getConnection());
+            if(!dao.insertValues(gradesJson)){
+                throw new Exception("Error inserting into Grades Table!!!");
+            }
         } catch (SQLException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error inserting into Grades Table!!!";
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error inserting into Grades Table!!!";
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error inserting into Grades Table!!!";
+        } catch (Exception ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
             return "Error inserting into Grades Table!!!";
         }
