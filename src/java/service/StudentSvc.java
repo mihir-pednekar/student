@@ -14,4 +14,5 @@ import model.CreateDB;
 public interface StudentSvc {
     public String createDB(String createDb);
     public String insertGrade(String grades);
+    public String viewGrade(String grades);
 }

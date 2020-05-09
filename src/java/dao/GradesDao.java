@@ -8,13 +8,18 @@ package dao;
 import com.google.gson.JsonObject;
 import constants.SqlQueryConstants;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+import model.GradesModel;
 
 /**
  *
  * @author mihir
+ * This is an eg. of One to One relationship between tables Students and Grades
  */
 public class GradesDao {
     private Connection con;
@@ -27,8 +32,8 @@ public class GradesDao {
         boolean success = false;
         
         try{
-            Timestamp tstamp = new Timestamp(System.currentTimeMillis());
-            Long sharedPk = tstamp.getTime();
+            //Timestamp tstamp = new Timestamp(System.currentTimeMillis());
+            String sharedPk = gradesJson.get("studentId").getAsString();
         
             StringBuilder query1 = new StringBuilder(SqlQueryConstants.INSERT_INTO_STUDENT);
             query1.append("("+sharedPk+", '"+gradesJson.get("studentName").getAsString()+"', '"+gradesJson.get("studentLastName").getAsString()+"', CURRENT_DATE)");
@@ -55,5 +60,22 @@ public class GradesDao {
             }
         }
         return success;
+    }
+    public List<GradesModel> viewValues(String studID) throws SQLException{
+        //Executing the query
+      List<GradesModel> list = new ArrayList<>();
+      
+      StringBuilder query = new StringBuilder(SqlQueryConstants.SELECT_GRADES_JOIN_STUDENT);
+      //query.append(gradesJson.get("studentID").getAsString());
+      query.append(studID);
+      
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery(query.toString());
+      
+      while(rs.next()){
+          list.add(new GradesModel(rs.getString("Id"), rs.getString("fName"), rs.getString("lName"), rs.getString("regDate"), rs.getString("grade")));
+      }
+      
+      return list;
     }
 }

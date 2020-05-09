@@ -40,5 +40,9 @@ public class SqlQueryConstants {
     
     public static final String INSERT_INTO_STUDENT = "INSERT INTO Students ("
          + "Id, fName, lName, regDate) VALUES ";
-            
+    
+    public static final String SELECT_GRADES_JOIN_STUDENT = "SELECT s.Id, s.fName, s.lName, s.regDate, g.grade FROM Students s "
+            + "INNER JOIN Grades g "
+            + "ON s.Id = g.studId "
+            + "WHERE s.Id = ";
 }
