@@ -28,12 +28,12 @@ function insertClasses() {
     window.location.href = "http://localhost:8080/student/home.html";
 }
 
-function viewGrades() {
+function viewClasses() {
     var studID = document.getElementById("studentID").value;
     var txt = "";
     //var obj = { studentID: studID };
     //var myJSON = JSON.stringify(obj);
-
+    document.getElementById("viewTables").innerHTML = txt;
     var xhttp = new XMLHttpRequest();
     
     xhttp.onreadystatechange = function() {
@@ -41,15 +41,16 @@ function viewGrades() {
     alert(this.responseText);
     myObj = JSON.parse(this.responseText);
     txt += "<table border='1'>"
-    txt += "<tr><td>StudId</td><td>StudFirstName</td><td>StudLastName</td><td>RegDate</td><td>Grades</td></tr>";
+    //cId, cTitle, Id, fName
+    txt += "<tr><td>ClassId</td><td>ClassTitle</td><td>StudID</td><td>StudFirstName</td></tr>";
     for (x in myObj) {
-    txt += "<tr><td>" + myObj[x].id + "</td><td>"+ myObj[x].fName + "</td><td>"+ myObj[x].lName + "</td><td>"+ myObj[x].regDate + "</td><td>"+ myObj[x].grade + "</td></tr>";
+    txt += "<tr><td>" + myObj[x].cId + "</td><td>"+ myObj[x].cTitle + "</td><td>"+ myObj[x].Id + "</td><td>"+ myObj[x].fName + "</td></tr>";
     }
     txt += "</table>"    
     document.getElementById("viewTables").innerHTML = txt;
     }
     };
-    xhttp.open("GET", "http://localhost:8080/student/rest/student-rest/viewGrade/"+studID, true);
+    xhttp.open("GET", "http://localhost:8080/student/rest/student-rest/viewClasses/"+studID, true);
     //xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
     alert("Data sent to web service "+studID);

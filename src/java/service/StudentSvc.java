@@ -19,4 +19,5 @@ public interface StudentSvc {
     public String insertClass(String classes);
     public String insertPay(String classes);
     public String viewPayment(String studID);
+    public String viewClasses(String studID);
 }

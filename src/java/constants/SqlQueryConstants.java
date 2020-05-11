@@ -24,10 +24,10 @@ public class SqlQueryConstants {
                 + "PRIMARY KEY (cId))";
             
     public static final String CREATE_ENROLLEMTS_TABLE = "CREATE TABLE Enrollments( "
-                + "eId BIGINT NOT NULL, "
+                //+ "eId BIGINT NOT NULL, "
                 + "classId BIGINT NOT NULL, "
                 + "studId BIGINT NOT NULL, "
-                + "PRIMARY KEY (eId), "
+                + "PRIMARY KEY (classId,studId), "
                 + "FOREIGN KEY (classId) REFERENCES Classes(cId), "
                 + "FOREIGN KEY (studId) REFERENCES Students(Id)) ";
     
@@ -53,7 +53,7 @@ public class SqlQueryConstants {
          + "cId, cTitle, cDesc) VALUES ";
     
     public static final String INSERT_INTO_ENROLLEMTS = "INSERT INTO Enrollments ("
-         + "eId, classId, studId) VALUES ";
+         + "classId, studId) VALUES ";
     
     public static final String INSERT_INTO_PAYMENTS = "INSERT INTO Payments ("
          + "pId, amount, studId) VALUES ";
@@ -65,4 +65,7 @@ public class SqlQueryConstants {
     
     public static final String SELECT_PAYMENTS_STUDENT = "SELECT * FROM Payments p "
             + "WHERE p.studId = ";
+    
+    public static final String SELECT_CLASSES_STUDENT = "SELECT c.cId, c.cTitle, s.Id, s.fName FROM Classes c, Students s, Enrollments e "
+            + "WHERE e.classId = c.cId AND e.studId = ";
 }

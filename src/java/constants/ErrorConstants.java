@@ -18,4 +18,6 @@ public class ErrorConstants {
     public static final String ERROR_STUD_ID_DOESNT_EXIST = "Error student ID doesnt exist!!!";
     
     public static final String ERROR_VIEWING_INTO_PAYMENTS = "Error viewing into Payments Table!!!";
+    
+    public static final String ERROR_VIEWING_INTO_CLASSES = "Error viewing into Classes Table!!!";
 }

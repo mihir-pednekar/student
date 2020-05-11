@@ -10,11 +10,15 @@ import constants.ErrorConstants;
 import constants.MsgConstants;
 import constants.SqlQueryConstants;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import model.ClassesModel;
 import model.GradesModel;
+import model.PaymentsModel;
 
 /**
  *
@@ -44,8 +48,8 @@ public class ClassesDao {
             System.out.println(query1);
             
             StringBuilder query2 = new StringBuilder(SqlQueryConstants.INSERT_INTO_ENROLLEMTS);
-            //+ "eId, classId, studId) VALUES ";
-            query2.append("("+sharedPkEId+", "+sharedPkCId+", "+classesJson.get("studentId").getAsString()+")");
+            //+ "classId, studId) VALUES ";
+            query2.append("("+sharedPkCId+", "+classesJson.get("studentId").getAsString()+")");
             System.out.println(query2);
             
             GradesDao gradesDao = new GradesDao(con);
@@ -57,7 +61,7 @@ public class ClassesDao {
             Statement stmt = con.createStatement();
             con.setAutoCommit(false);
             
-            stmt.execute(query2.toString());
+            stmt.execute(query1.toString());
             stmt.execute(query2.toString());
             con.commit();
             success = true;
@@ -73,5 +77,25 @@ public class ClassesDao {
             }
         }
         return success;
+    }
+    
+    public List<ClassesModel> viewValues(String studID) throws SQLException{
+        //Executing the query
+      List<ClassesModel> list = new ArrayList<>();
+      
+      StringBuilder query = new StringBuilder(SqlQueryConstants.SELECT_CLASSES_STUDENT);
+      //query.append(gradesJson.get("studentID").getAsString());
+      query.append(studID);
+      
+      Statement stmt = con.createStatement();
+      ResultSet rs = stmt.executeQuery(query.toString());
+      
+      while(rs.next()){
+          //list.add(new GradesModel(rs.getString("Id"), rs.getString("fName"), rs.getString("lName"), rs.getString("regDate"), rs.getString("grade")));
+          //c.cId, c.cTitle, s.Id, s.fName
+          list.add(new ClassesModel(rs.getString("cId"), rs.getString("cTitle"), rs.getString("Id"), rs.getString("fName")));
+      }
+      
+      return list;
     }
 }
