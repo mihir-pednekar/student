@@ -5,6 +5,7 @@
  */
 package service;
 
+import javax.ws.rs.PathParam;
 import model.CreateDB;
 
 /**
@@ -15,4 +16,7 @@ public interface StudentSvc {
     public String createDB(String createDb);
     public String insertGrade(String grades);
     public String viewGrade(String grades);
+    public String insertClass(String classes);
+    public String insertPay(String classes);
+    public String viewPayment(String studID);
 }

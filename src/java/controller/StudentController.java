@@ -8,7 +8,11 @@ package controller;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import constants.ErrorConstants;
+import constants.MsgConstants;
+import dao.ClassesDao;
 import dao.GradesDao;
+import dao.PaymentsDao;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,6 +25,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Request;
 import model.CreateDB;
 import model.GradesModel;
+import model.PaymentsModel;
 import util.DbConnection;
 import util.ReadWriteJson;
 
@@ -123,6 +128,117 @@ public class StudentController implements StudentSvc{
         } catch (Exception ex) {
             Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
             return "Error viewing into Grades Table!!!";
+        }
+        return responseTxt;
+    }
+    
+    @Override
+    @POST
+    @Path("insertClass")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String insertClass(String classes) {
+        System.out.println("<------------------------InsertClass Service------------------------->");
+        System.out.println(classes);
+        try {
+            JsonObject classesJson = ReadWriteJson.readJson(classes);
+            JsonObject dbConnJson = ReadWriteJson.readJsonFile("createDB.json");
+            
+            DbConnection dbConn = new DbConnection(dbConnJson);
+            ClassesDao dao = new ClassesDao(dbConn.getConnection());
+            
+            if(!dao.insertValues(classesJson)){
+                throw new Exception(ErrorConstants.ERROR_INSERT_INTO_CLASSES_TABLE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_CLASSES_TABLE;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_CLASSES_TABLE;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_CLASSES_TABLE;
+        } catch (Exception ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_CLASSES_TABLE;
+        }
+        return "Inserted into Grades Table!!!";
+    }
+    
+    @Override
+    @POST
+    @Path("insertPay")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String insertPay(String payment) {
+        System.out.println("<------------------------InsertPay Service------------------------->");
+        System.out.println(payment);
+        try {
+            JsonObject classesJson = ReadWriteJson.readJson(payment);
+            JsonObject dbConnJson = ReadWriteJson.readJsonFile("createDB.json");
+            
+            DbConnection dbConn = new DbConnection(dbConnJson);
+            PaymentsDao dao = new PaymentsDao(dbConn.getConnection());
+            
+            if(!dao.insertValues(classesJson)){
+                throw new Exception(ErrorConstants.ERROR_INSERT_INTO_PAYMENTS_TABLE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_PAYMENTS_TABLE;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_PAYMENTS_TABLE;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_PAYMENTS_TABLE;
+        } catch (Exception ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_INSERT_INTO_PAYMENTS_TABLE;
+        }
+        return MsgConstants.VALUES_INSERTED_INTO_PAYMENTS_TABLE;
+    }
+    
+    @Override
+    @GET
+    @Path("viewPayment/{studID}")
+    @Produces(MediaType.APPLICATION_JSON)
+    //@Consumes(MediaType.TEXT_PLAIN)
+    public String viewPayment(@PathParam("studID") String studID) {
+        System.out.println("<------------------------ViewPayment Service------------------------->");
+        System.out.println(studID);
+        List<PaymentsModel> listPayments = null;
+        String responseTxt = null;
+        
+        try {
+            //JsonObject gradesJson = ReadWriteJson.readJson(grades);
+            JsonObject dbConnJson = ReadWriteJson.readJsonFile("createDB.json");
+            
+            DbConnection dbConn = new DbConnection(dbConnJson);
+            
+            PaymentsDao dao = new PaymentsDao(dbConn.getConnection());
+            listPayments = dao.viewValues(studID);
+            
+            if(listPayments.isEmpty() ){
+                throw new Exception(ErrorConstants.ERROR_VIEWING_INTO_PAYMENTS);
+            }
+            Gson gson = new Gson();
+            responseTxt = gson.toJson(listPayments);
+            System.out.println(responseTxt);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_VIEWING_INTO_PAYMENTS;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_VIEWING_INTO_PAYMENTS;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_VIEWING_INTO_PAYMENTS;
+        } catch (Exception ex) {
+            Logger.getLogger(StudentController.class.getName()).log(Level.SEVERE, null, ex);
+            return ErrorConstants.ERROR_VIEWING_INTO_PAYMENTS;
         }
         return responseTxt;
     }

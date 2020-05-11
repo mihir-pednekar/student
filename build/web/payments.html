@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Student Payment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="script_payments.js"> </script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <form method="post" action="home.html">
+            <table>
+                <tr>
+                    <td>Create Payments</td>
+                        <td><a href="http://localhost:8080/student/home.html">HOME</a></td>
+                    </tr>
+
+                <tr>
+                    <td>Student ID</td>
+                    <td> <input type="text" id="studentID" name="studID" value="19027656" size="30"> </td>
+                </tr>
+                <tr>
+                    <td>Payment Amount</td>
+                    <td> <input type="text" id="payAmount" name="payId" value="1000" size="30"> </td>
+                </tr>
+                <tr>
+                    <td> <input type="submit" formmethod="post" value="Submit" size="30" onclick="makePayment()"> </td>
+                </tr>
+            </table>
+        </form>
+        
+        <p id="viewTables"></p>
+    </body>
+</html>

@@ -60,6 +60,7 @@ public class DbConnection {
             stmt.executeUpdate(SqlQueryConstants.CREATE_CLASSES_TABLE);
             stmt.executeUpdate(SqlQueryConstants.CREATE_ENROLLEMTS_TABLE);
             stmt.executeUpdate(SqlQueryConstants.CREATE_GRADES_TABLE);
+            stmt.executeUpdate(SqlQueryConstants.CREATE_PAYMENTS_TABLE);
             
             con.commit();
             System.out.println("Created table in given database...");

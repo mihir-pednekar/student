@@ -11,7 +11,7 @@ package constants;
  */
 public class SqlQueryConstants {
     public static final String CREATE_STUDENT_TABLE = "CREATE TABLE Students( "
-                + "Id BIGINT NOT NULL, "
+                + "Id BIGINT NOT NULL , "
                 + "fName VARCHAR(30), "
                 + "lName VARCHAR(30), "
                 + "regDate DATE, "
@@ -27,6 +27,7 @@ public class SqlQueryConstants {
                 + "eId BIGINT NOT NULL, "
                 + "classId BIGINT NOT NULL, "
                 + "studId BIGINT NOT NULL, "
+                + "PRIMARY KEY (eId), "
                 + "FOREIGN KEY (classId) REFERENCES Classes(cId), "
                 + "FOREIGN KEY (studId) REFERENCES Students(Id)) ";
     
@@ -35,14 +36,33 @@ public class SqlQueryConstants {
                 + "grade REAL NOT NULL, "
                 + "FOREIGN KEY (studId) REFERENCES Students(Id)) ";
     
+    public static final String CREATE_PAYMENTS_TABLE = "CREATE TABLE Payments( "
+                + "pId BIGINT NOT NULL, "
+                + "amount BIGINT NOT NULL, "
+                + "studId BIGINT NOT NULL, "
+                + "PRIMARY KEY (pId), "
+                + "FOREIGN KEY (studId) REFERENCES Students(Id)) ";
+    
     public static final String INSERT_INTO_GRADES = "INSERT INTO Grades ("
          + "studId, grade) VALUES ";
     
     public static final String INSERT_INTO_STUDENT = "INSERT INTO Students ("
          + "Id, fName, lName, regDate) VALUES ";
     
+    public static final String INSERT_INTO_CLASSES = "INSERT INTO Classes ("
+         + "cId, cTitle, cDesc) VALUES ";
+    
+    public static final String INSERT_INTO_ENROLLEMTS = "INSERT INTO Enrollments ("
+         + "eId, classId, studId) VALUES ";
+    
+    public static final String INSERT_INTO_PAYMENTS = "INSERT INTO Payments ("
+         + "pId, amount, studId) VALUES ";
+    
     public static final String SELECT_GRADES_JOIN_STUDENT = "SELECT s.Id, s.fName, s.lName, s.regDate, g.grade FROM Students s "
             + "INNER JOIN Grades g "
             + "ON s.Id = g.studId "
             + "WHERE s.Id = ";
+    
+    public static final String SELECT_PAYMENTS_STUDENT = "SELECT * FROM Payments p "
+            + "WHERE p.studId = ";
 }

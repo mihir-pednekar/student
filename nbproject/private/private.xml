@@ -5,13 +5,10 @@
         <group>
             <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/src/java/controller/StudentController.java</file>
             <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/web/script_grades.js</file>
-            <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/src/java/util/DbConnection.java</file>
-            <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/web/index.html</file>
+            <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/web/grades.html</file>
             <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/src/java/dao/GradesDao.java</file>
+            <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/web/viewGrades.html</file>
             <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/src/java/util/ReadWriteJson.java</file>
-            <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/web/script.js</file>
-            <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/web/home.html</file>
-            <file>file:/C:/Users/mihir/Documents/NetBeansProjects/Rest/student/src/java/constants/SqlQueryConstants.java</file>
         </group>
     </open-files>
 </project-private>
