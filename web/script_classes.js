@@ -8,9 +8,9 @@
 function insertClasses() {
     var studId = document.getElementById("studentID").value;
     var clsTitle = document.getElementById("classTitle").value;
-    var clsDesc = document.getElementById("classDesc").value;
+    //var clsDesc = document.getElementById("classDesc").value;
     //var studGrade = document.getElementById("studentGrade").value;
-    var obj = { studentId: studId, classTitle: clsTitle, classDesc: clsDesc };
+    var obj = { studentId: studId, classTitle: clsTitle };
     var myJSON = JSON.stringify(obj);
 
     var xhttp = new XMLHttpRequest();

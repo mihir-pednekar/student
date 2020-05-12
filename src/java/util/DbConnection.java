@@ -61,7 +61,8 @@ public class DbConnection {
             stmt.executeUpdate(SqlQueryConstants.CREATE_ENROLLEMTS_TABLE);
             stmt.executeUpdate(SqlQueryConstants.CREATE_GRADES_TABLE);
             stmt.executeUpdate(SqlQueryConstants.CREATE_PAYMENTS_TABLE);
-            
+            stmt.execute(SqlQueryConstants.INSERT_DEFAULT_INTO_CLASSES_1);
+            stmt.execute(SqlQueryConstants.INSERT_DEFAULT_INTO_CLASSES_2);
             con.commit();
             System.out.println("Created table in given database...");
             System.out.println("Database created successfully...");

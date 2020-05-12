@@ -49,8 +49,11 @@ public class SqlQueryConstants {
     public static final String INSERT_INTO_STUDENT = "INSERT INTO Students ("
          + "Id, fName, lName, regDate) VALUES ";
     
-    public static final String INSERT_INTO_CLASSES = "INSERT INTO Classes ("
-         + "cId, cTitle, cDesc) VALUES ";
+    public static final String INSERT_DEFAULT_INTO_CLASSES_1 = "INSERT INTO Classes ("
+         + "cId, cTitle, cDesc) VALUES (10, 'JAVA', 'CORE JAVA')";
+    
+    public static final String INSERT_DEFAULT_INTO_CLASSES_2 = "INSERT INTO Classes ("
+         + "cId, cTitle, cDesc) VALUES (20, 'C++', 'CORE C++')";
     
     public static final String INSERT_INTO_ENROLLEMTS = "INSERT INTO Enrollments ("
          + "classId, studId) VALUES ";
@@ -66,6 +69,8 @@ public class SqlQueryConstants {
     public static final String SELECT_PAYMENTS_STUDENT = "SELECT * FROM Payments p "
             + "WHERE p.studId = ";
     
-    public static final String SELECT_CLASSES_STUDENT = "SELECT c.cId, c.cTitle, s.Id, s.fName FROM Classes c, Students s, Enrollments e "
-            + "WHERE e.classId = c.cId AND e.studId = ";
+    public static final String SELECT_CLASSES_STUDENT = "SELECT c.cId, c.cTitle, s.Id, s.fName FROM Students s "
+            + "INNER JOIN Enrollments e on s.Id = e.studId "
+            +"LEFT JOIN Classes c on c.cId = e.classId "
+            + "WHERE e.studId = ";
 }

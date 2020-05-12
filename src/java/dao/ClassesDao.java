@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import model.ClassesModel;
 import model.GradesModel;
@@ -38,14 +39,19 @@ public class ClassesDao {
         boolean success = false;
         
         try{
-            Timestamp tstamp = new Timestamp(System.currentTimeMillis());
-            Long sharedPkCId = tstamp.getTime();
-            Long sharedPkEId = tstamp.getTime()%1000;
-        
-            StringBuilder query1 = new StringBuilder(SqlQueryConstants.INSERT_INTO_CLASSES);
+            //Timestamp tstamp = new Timestamp(System.currentTimeMillis());
+            String sharedPkCId = "";
+            //Long sharedPkEId = tstamp.getTime()%1000;
+            
+            HashMap<String, String> classesMap = new HashMap<>();
+            classesMap.put("JAVA", "10");
+            classesMap.put("C++", "20");
+            
+            //StringBuilder query1 = new StringBuilder(SqlQueryConstants.INSERT_INTO_CLASSES);
             //+ "cId, cTitle, cDesc) VALUES ";
-            query1.append("("+sharedPkCId+", '"+classesJson.get("classTitle").getAsString()+"', '"+classesJson.get("classDesc").getAsString()+"')");
-            System.out.println(query1);
+            //query1.append("("+sharedPkCId+", '"+classesJson.get("classTitle").getAsString()+"', '"+classesJson.get("classDesc").getAsString()+"')");
+            //System.out.println(query1);
+            sharedPkCId = classesMap.get(classesJson.get("classTitle").getAsString());
             
             StringBuilder query2 = new StringBuilder(SqlQueryConstants.INSERT_INTO_ENROLLEMTS);
             //+ "classId, studId) VALUES ";
@@ -61,7 +67,7 @@ public class ClassesDao {
             Statement stmt = con.createStatement();
             con.setAutoCommit(false);
             
-            stmt.execute(query1.toString());
+            //stmt.execute(query1.toString());
             stmt.execute(query2.toString());
             con.commit();
             success = true;
@@ -86,6 +92,7 @@ public class ClassesDao {
       StringBuilder query = new StringBuilder(SqlQueryConstants.SELECT_CLASSES_STUDENT);
       //query.append(gradesJson.get("studentID").getAsString());
       query.append(studID);
+      System.out.println(query);
       
       Statement stmt = con.createStatement();
       ResultSet rs = stmt.executeQuery(query.toString());

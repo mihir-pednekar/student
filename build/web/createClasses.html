@@ -16,7 +16,7 @@ and open the template in the editor.
         <form method="post" action="home.html">
             <table>
                 <tr>
-                    <td>Create Classes</td>
+                    <td>Assign Classes</td>
                         <td><a href="http://localhost:8080/student/home.html">HOME</a></td>
                     </tr>
 
@@ -26,12 +26,13 @@ and open the template in the editor.
                     <td> <input type="submit" formmethod="get" value="View" size="30" onclick="viewGrades()"> </td>
                 </tr>
                 <tr>
-                    <td>Create Class Title</td>
-                    <td> <input type="text" id="classTitle" name="clsTitle" value="Java" size="30"> </td>
-                </tr>
-                <tr>
-                    <td>Create Class Description</td>
-                    <td> <input type="text" id="classDesc" name="clsDesc" value="Core Java" size="30"> </td>
+                    <td>Assign to a Class</td>
+                    <td>
+                        <select id="classTitle" name="clsList">
+                          <option value="JAVA">JAVA</option>
+                          <option value="C++">C++</option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td> <input type="submit" formmethod="post" value="Submit" size="30" onclick="insertClasses()"> </td>
